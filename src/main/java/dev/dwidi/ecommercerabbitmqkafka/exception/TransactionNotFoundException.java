@@ -1,2 +1,7 @@
-package dev.dwidi.ecommercerabbitmqkafka.exception;public class TransactionNotFoundException {
+package dev.dwidi.ecommercerabbitmqkafka.exception;
+
+public class TransactionNotFoundException extends RuntimeException {
+    public TransactionNotFoundException(String message) {
+        super(message);
+    }
 }

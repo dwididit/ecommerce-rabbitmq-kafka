@@ -1,4 +1,4 @@
-package dev.dwidi.ecommercerabbitmqkafka.service;
+package dev.dwidi.ecommercerabbitmqkafka.service.rabbitmq;
 
 import dev.dwidi.ecommercerabbitmqkafka.config.rabbitmq.RabbitMQConfig;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

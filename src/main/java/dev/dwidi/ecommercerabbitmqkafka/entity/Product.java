@@ -1,17 +1,22 @@
-package entity;
+package dev.dwidi.ecommercerabbitmqkafka.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
-public class Product {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,12 +30,16 @@ public class Product {
 
     private Double productPrice;
 
-    @OneToOne
-
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    @JsonBackReference
+    private List<Transaction> transactions;
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @Transient
+    private String operation;
 }

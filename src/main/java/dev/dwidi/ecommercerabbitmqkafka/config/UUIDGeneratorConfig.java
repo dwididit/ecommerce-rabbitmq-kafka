@@ -1,5 +1,16 @@
-package dev.dwidi.ecommercerabbitmqkafka.config.rabbitmq;
+package dev.dwidi.ecommercerabbitmqkafka.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-public class UUIDGenerator {
+import java.util.UUID;
+import java.util.function.Supplier;
+
+@Configuration
+public class UUIDGeneratorConfig {
+
+    @Bean
+    public Supplier<String> uuidSupplier() {
+        return () -> UUID.randomUUID().toString();
+    }
 }

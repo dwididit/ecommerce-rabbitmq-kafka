@@ -65,8 +65,8 @@ This project is a RESTful API for an E-Commerce application developed using Spri
    ```bash
    # Database configuration
    spring.datasource.url=jdbc:postgresql://localhost:5432/database_name
-   spring.mail.username=user
-   spring.mail.password=password
+   spring.datasource.username=postgres
+   spring.datasource.password=postgres
    spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
    spring.jpa.hibernate.ddl-auto=update
    spring.jpa.show-sql=true

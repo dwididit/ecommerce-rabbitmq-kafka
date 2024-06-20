@@ -18,7 +18,6 @@ This project is a RESTful API for an E-Commerce application developed using Spri
 - Delete product entries
 - Retrieve a specific product entry by ID
 - Retrieve all product entries with optional pagination
-- Retrieve products by category
 
 ### Transaction Management
 - Create transactions

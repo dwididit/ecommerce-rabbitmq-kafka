@@ -116,7 +116,7 @@ This project is a RESTful API for an E-Commerce application developed using Spri
    ```
 4. Build and run with Docker Compose
    ```bash
-   docker-compose up --build -d
+   docker-compose up --build
    ```
 
 The application will run on http://localhost:9090

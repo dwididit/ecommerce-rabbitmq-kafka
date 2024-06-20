@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 @RestController
 @RequestMapping("/api/recommendations")
@@ -29,6 +29,9 @@ public class RecommendationController {
 
     @Autowired
     private KafkaConsumerService kafkaConsumerService;
+
+    @Autowired
+    private Supplier<String> uuidSupplier;
 
     @Operation(summary = "Get product recommendations", description = "Get product recommendations for a user based on purchase history")
     @ApiResponses(value = {
@@ -45,30 +48,30 @@ public class RecommendationController {
             // Check if the user exists before sending the Kafka message
             kafkaConsumerService.checkUserExists(userId);
 
-            // User exists, proceed to send Kafka message
+            // Proceed to send Kafka message
             kafkaProducerService.sendMessage(userId);
 
             // Wait for Kafka to process the message and produce recommendations
             List<Product> recommendations = null;
-            for (int i = 0; i < 5; i++) { // Reduce the number of retries and wait time
+            for (int i = 0; i < 5; i++) {
                 recommendations = kafkaConsumerService.getRecommendations(userId);
                 if (recommendations != null) {
                     break;
                 }
                 try {
-                    TimeUnit.MILLISECONDS.sleep(500); // Use shorter wait time
+                    TimeUnit.MILLISECONDS.sleep(500);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
             }
 
             if (recommendations == null) {
-                return new PublicResponseDTO<>(UUID.randomUUID().toString(), 500, "Failed to fetch recommendations", null);
+                return new PublicResponseDTO<>(uuidSupplier.get(), 500, "Failed to fetch recommendations", null);
             }
 
-            return new PublicResponseDTO<>(UUID.randomUUID().toString(), 200, "Recommendations fetched successfully", recommendations);
+            return new PublicResponseDTO<>(uuidSupplier.get(), 200, "Recommendations fetched successfully", recommendations);
         } catch (UserNotFoundException e) {
-            return new PublicResponseDTO<>(UUID.randomUUID().toString(), 404, e.getMessage(), null);
+            return new PublicResponseDTO<>(uuidSupplier.get(), 404, e.getMessage(), null);
         }
     }
 }

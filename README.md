@@ -61,59 +61,13 @@ This project is a RESTful API for an E-Commerce application developed using Spri
    gh repo clone dwididit/ecommerce-rabbitmq-kafka
    cd ecommerce-rabbitmq-kafka/
    ```
-2. Create `application-dev.properties` file
-   ```bash
-   # Database configuration
-   spring.datasource.url=jdbc:postgresql://localhost:5432/database_name
-   spring.datasource.username=postgres
-   spring.datasource.password=postgres
-   spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
-   spring.jpa.hibernate.ddl-auto=update
-   spring.jpa.show-sql=true
    
-   # Server port
-   server.port=9090
-   
-   # Logging configuration
-   logging.level.root=INFO
-   logging.level.dev.dwidi=DEBUG
-   logging.pattern.console=%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n
-   logging.pattern.file=%d{yyyy-MM-dd HH:mm:ss} - %msg%n
-   logging.file.name=logs/application.log
-   
-   # CORS Configuration
-   url.frontend=http://your-url.com
-   
-   # Whitelist URLs
-   security.whitelist.urls=/api/auth/**,/api/public/**,/api/another/**,/swagger-ui/**,/v3/api-docs/**,/v3/api-docs
-   
-   # Kafka configuration
-   spring.kafka.bootstrap-servers=localhost:9092
-   spring.kafka.consumer.group-id=group_id
-   spring.kafka.consumer.auto-offset-reset=earliest
-   spring.kafka.consumer.key-deserializer=org.apache.kafka.common.serialization.StringDeserializer
-   spring.kafka.consumer.value-deserializer=org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
-   spring.kafka.consumer.properties.spring.deserializer.value.delegate.class=org.springframework.kafka.support.serializer.JsonDeserializer
-   spring.kafka.producer.key-serializer=org.apache.kafka.common.serialization.StringSerializer
-   spring.kafka.producer.value-serializer=org.springframework.kafka.support.serializer.JsonSerializer
-   
-   
-   # JWT configuration
-   jwt.token.secret=your-secret-token
-   jwt.token.issuer=Dwi Didit Prasetiyo
-   
-   # 1 day in seconds
-   jwt.token.accessValid=86400
-   
-   # 1 month (30 days) in seconds
-   jwt.token.refreshValid=2592000
-   ```
-
-3. Build .jar using Maven
+2. Build .jar using Maven
    ```bash
    mvn clean package
    ```
-4. Build and run with Docker Compose
+   
+3. Build and run with Docker Compose
    ```bash
    docker-compose up --build
    ```

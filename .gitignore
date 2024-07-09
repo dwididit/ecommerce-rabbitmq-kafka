@@ -5,6 +5,7 @@ src/main/resources/application-dev.properties
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+.DS_Store
 
 ### STS ###
 .apt_generated
